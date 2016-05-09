@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-
+from operator import itemgetter
 def outlierCleaner(predictions, ages, net_worths):
     """
         Clean away the 10% of points that have the largest
@@ -13,8 +13,12 @@ def outlierCleaner(predictions, ages, net_worths):
     
     cleaned_data = []
 
-    ### your code goes here
 
-    
+    ### your code goes here
+    error = []
+    error = predictions - net_worths
+    formatted_data = zip(ages,net_worths,error)
+    sortedByError = sorted(formatted_data,key=itemgetter(2))
+    cleaned_data = sortedByError[:int(0.9*len(error))]
     return cleaned_data
 
